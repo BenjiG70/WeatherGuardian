@@ -1,0 +1,51 @@
+.weather-card {
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    // background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    background-color: #777;
+  }
+  
+  .weather-card-header {
+    display: flex;
+    flex-direction: column; /* Anordnung der Elemente in einer Spalte */
+    align-items: center; /* Zentriert die Elemente horizontal */
+    margin-bottom: 20px;
+  }
+  
+  .weather-card-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+    display: flex;
+    align-items: center; /* Vertikale Ausrichtung von Text und Icon */
+  }
+  
+  .weather-card-header .time {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .weather-card-content {
+    line-height: 1.6;
+    // background-color: blue;
+  }
+  
+  .weather-card-content p {
+    margin: 10px 0;
+    
+  }
+  
+  .weather-card-content strong {
+    color: #333;
+  }
+  
+  .rain-icon {
+    color: blue; /* Farbe des Symbols */
+    font-size: 24px; /* Größe des Symbols */
+    margin-left: 10px; /* Abstand zwischen Titel und Symbol */
+  }

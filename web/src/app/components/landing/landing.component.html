@@ -1,0 +1,20 @@
+<div class="body">
+    <div class="sensor-container">
+        <div *ngFor="let sensor of sensorsData" class="sensor-data" (click)="openDialog(sensor)">
+          <app-weathercards
+            [sensor]="sensor.sensor"
+            [temperature]="sensor.temperature"
+            [humidity]="sensor.humidity"
+            [air_pressure]="sensor.air_pressure"
+            [rain]="sensor.regen === 1"
+            [date]="sensor.DATE_TIME"
+            >
+        </app-weathercards>
+        </div>
+    </div>
+
+    <div *ngIf="sensorsData.length === 0">
+      <p>Lade Sensordaten...</p>
+    </div>
+  
+  </div>
