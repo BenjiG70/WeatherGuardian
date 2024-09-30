@@ -1,6 +1,6 @@
 <div class="body">
     <div class="sensor-container">
-        <div *ngFor="let sensor of sensorsData" class="sensor-data" (click)="openDialog(sensor)">
+        <div *ngFor="let sensor of sensorsData" class="sensor-data" >
           <app-weathercards
             [sensor]="sensor.sensor"
             [temperature]="sensor.temperature"

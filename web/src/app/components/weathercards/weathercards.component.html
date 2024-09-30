@@ -1,15 +1,15 @@
-<div class="weather-card">
-    <div class="weather-card-header">
-      <h2>
-        {{sensor}}
-        <svg *ngIf=false class="rain-icon" fill="#000000" width="24px" height="24px" viewBox="-2.4 -2.4 28.80 28.80" xmlns="http://www.w3.org/2000/svg" id="rain-alt" class="icon glyph"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-2.4, -2.4), scale(1.7999999999999998)" fill="#53d5fd" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M21,9a4,4,0,0,1-4,4H6A3,3,0,1,1,7.08,7.21a5,5,0,0,1,9-2.09A4.08,4.08,0,0,1,17,5,4,4,0,0,1,21,9ZM16.89,21.45l2-4a1,1,0,1,0-1.78-.9l-2,4a1,1,0,0,0,.44,1.34A.93.93,0,0,0,16,22,1,1,0,0,0,16.89,21.45Zm-8,0,2-4a1,1,0,1,0-1.78-.9l-2,4a1,1,0,0,0,.44,1.34A.93.93,0,0,0,8,22,1,1,0,0,0,8.89,21.45Zm5-2,1-2a1,1,0,1,0-1.78-.9l-1,2a1,1,0,0,0,.44,1.34A.93.93,0,0,0,13,20,1,1,0,0,0,13.89,19.45Zm-8,0,1-2a1,1,0,0,0-1.78-.9l-1,2a1,1,0,0,0,.44,1.34A.93.93,0,0,0,5,20,1,1,0,0,0,5.89,19.45Z"></path></g></svg>   
-        </h2>
-      <p class="time">letzter Stand: {{date}} </p>
-    </div>
-    <div class="weather-card-content">
-      <p><strong>temperature:</strong> {{temperature}}°C</p>
-      <p><strong>humidity:</strong> {{humidity}}%</p>
-      <p><strong>air_pressure:</strong> {{air_pressure}} hPa</p>
-    </div>
-  </div>
-  
+  <div id="weather_wrapper">
+	<div class="weatherCard">
+		<div class="currentTemp">
+			<span class="temp">{{temperature}}&deg;</span>
+			<span class="location">{{sensor}}</span>
+		</div>
+		<div class="currentWeather">
+			<span class="conditions">&#xf00d;</span>
+			<div class="info">
+				<span class="rain">{{humidity}}</span>
+				<span class="wind">{{air_pressure}}</span>
+			</div>
+		</div>
+	</div>
+</div>
