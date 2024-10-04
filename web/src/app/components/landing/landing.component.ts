@@ -64,19 +64,19 @@ export class LandingComponent implements OnInit, OnDestroy {
     });
   }
 
-  openDialog(sensor: any): void {
-    this.dialog.open(DetailsComponent, {
-      width: '150%',
-      data: {
-        sensorname: sensor.sensor,
-        temperatur: sensor.temperature,
-        luftfeuchte: sensor.humidity,
-        luftdruck: sensor.air_pressure,
-        regen: sensor.regen,
-        zeit: sensor.DATE_TIME
-      }
-    });
-  }
+  // openDialog(sensor: any): void {
+  //   this.dialog.open(DetailsComponent, {
+  //     width: '150%',
+  //     data: {
+  //       sensorname: sensor.sensor,
+  //       temperatur: sensor.temperature,
+  //       luftfeuchte: sensor.humidity,
+  //       luftdruck: sensor.air_pressure,
+  //       regen: sensor.regen,
+  //       zeit: sensor.DATE_TIME
+  //     }
+  //   });
+  // }
 
   ngOnDestroy(): void {
     if (this.updateSubscription) {

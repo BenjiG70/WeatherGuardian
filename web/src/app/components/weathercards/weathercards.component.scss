@@ -1,51 +1,108 @@
-.weather-card {
-    width: 300px;
-    margin: 20px auto;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    // background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
-    background-color: #777;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css);
+
+body {
+	background: linear-gradient(90deg, #7474BF 10%, #348AC7 90%);
+}
+#weather_wrapper{
+	width: 400px;
+	margin: 100px auto;
+}
+.weatherCard{
+	width: 400px;
+	height: 200px;
+	font-family: 'Open Sans';
+	position: relative;
+}
+.currentTemp{
+	width: 220px;
+	height: 200px;
+	background: rgb(41, 41, 41);
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.currentWeather{
+	width: 180px;
+	height: 200px;
+	background: rgb(237, 237, 237);
+	margin: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.temp{
+	font-size: 80px;
+	text-align: center;
+	display: block;
+	font-weight: 300;
+	color: rgb(255, 255, 255);
+	padding: 20px 0 0;
+}
+.location{
+	color: rgb(255, 255, 255);
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 25px;
+	display: block;
+}
+.conditions {
+    font-family: weathericons;
+    font-size: 80px;
+    display: block;
+    padding: 20px 0 0;
+    text-align: center;
   }
-  
-  .weather-card-header {
-    display: flex;
-    flex-direction: column; /* Anordnung der Elemente in einer Spalte */
-    align-items: center; /* Zentriert die Elemente horizontal */
-    margin-bottom: 20px;
-  }
-  
-  .weather-card-header h2 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-    display: flex;
-    align-items: center; /* Vertikale Ausrichtung von Text und Icon */
-  }
-  
-  .weather-card-header .time {
-    margin: 0;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .weather-card-content {
-    line-height: 1.6;
-    // background-color: blue;
-  }
-  
-  .weather-card-content p {
-    margin: 10px 0;
-    
-  }
-  
-  .weather-card-content strong {
-    color: #333;
-  }
-  
-  .rain-icon {
-    color: blue; /* Farbe des Symbols */
-    font-size: 24px; /* Größe des Symbols */
-    margin-left: 10px; /* Abstand zwischen Titel und Symbol */
-  }
+.info_top{
+	width: 180px;
+	height: 30px;
+	font-size: 17px;
+	position: absolute;
+	bottom: 1;
+	right: 0;
+	background: rgb(15, 142, 196);
+	font-weight: 700;
+	color: rgb(255, 255, 255);
+	text-align: center;
+}
+.info_bottom{
+	width: 180px;
+	height: 35px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background: rgb(15, 142, 196);
+	font-weight: 700;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	font-size: 17px;
+}
+.humidity {
+	width: 40%;
+	position: absolute;
+	left: 10px;
+	word-spacing: 60px;
+	top: 3px;
+}
+.humidity::before{
+	display: block;
+	font-size: 20px;
+	left: 6px;
+	top: -4px;
+	position: absolute;
+}
+.pressure {
+	width: 60%;
+	right: -10px;
+	position: absolute;
+	word-spacing: 60px;
+	top: 3px;
+}
+.pressure::before{
+	display: block;
+	font-size: 25px;
+	left: -10px;
+	position: absolute;
+	top: 5px;
+}
