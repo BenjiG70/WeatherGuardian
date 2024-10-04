@@ -57,8 +57,9 @@ body {
 .info_top{
 	width: 180px;
 	height: 30px;
+	font-size: 17px;
 	position: absolute;
-	bottom: 10;
+	bottom: 1;
 	right: 0;
 	background: rgb(15, 142, 196);
 	font-weight: 700;
@@ -75,9 +76,10 @@ body {
 	font-weight: 700;
 	color: rgb(255, 255, 255);
 	text-align: center;
+	font-size: 17px;
 }
 .humidity {
-	width: 50%;
+	width: 40%;
 	position: absolute;
 	left: 10px;
 	word-spacing: 60px;
@@ -85,13 +87,13 @@ body {
 }
 .humidity::before{
 	display: block;
-	font-size: 40px;
+	font-size: 20px;
 	left: 6px;
 	top: -4px;
 	position: absolute;
 }
 .pressure {
-	width: 50%;
+	width: 60%;
 	right: -10px;
 	position: absolute;
 	word-spacing: 60px;

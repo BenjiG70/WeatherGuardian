@@ -1,5 +1,5 @@
 import { TypeModifier } from '@angular/compiler';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-weathercards',
@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class WeathercardsComponent {
 
   private _date: any = "NaN"; // Private Variable für das Datum
-  formattedDate: string = ''; // Für das formatierte Datum
+  formattedDate: any = new Date();  // Für das formatierte Datum
 
   @Input() sensor:string = "default";
   private _temperature: number = 0;
@@ -48,13 +48,11 @@ export class WeathercardsComponent {
     return Math.round(value * 10) / 10; // Rundet auf eine Dezimalstelle
   }
   @Input() rain:boolean = false;
-  // rain:boolean = true;
+
+  
   @Input()
   set date(value: any) {
-    // Stelle sicher, dass der Wert ein Zeitstempel ist
-    this._date = new Date(Number(value)); // Umwandlung in ein Date-Objekt
-    this.formattedDate = this.formatDate(this._date); // Formatiere das Datum
-    console.log(this.formattedDate)
+    this.formattedDate = new Date(value).toLocaleString();
   }
 
   get date(): any {

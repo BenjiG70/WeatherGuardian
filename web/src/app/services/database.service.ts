@@ -8,7 +8,7 @@ import { apiData } from '../datatypes/database_interaction'
   providedIn: 'root'
 })
 export class DatabaseService {
-  private apiUrl = 'http://192.168.0.15:4202'; // Deine API-URL
+  private apiUrl = 'http://192.168.178.63:4202'; // Deine API-URL
 
   constructor(private http: HttpClient) {}
 
