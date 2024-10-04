@@ -5,11 +5,20 @@
 			<span class="location">{{sensor}}</span>
 		</div>
 		<div class="currentWeather">
-			<span class="conditions">&#xf00d;</span>
-			<div class="info">
-				<span class="rain">{{humidity}}</span>
-				<span class="wind">{{air_pressure}}</span>
+			<span id="weather-icon" class="conditions">
+                <!-- Wenn "rain" true ist, zeige dieses Symbol -->
+                <span *ngIf="rain">&#xf018;</span>
+              
+                <!-- Wenn "rain" false ist, zeige dieses Symbol -->
+                <span *ngIf="!rain">&#xf00d;</span>
+              </span>4
+			<div class="info_top">
+				<span class="humidity">{{humidity}} % </span>
+				<span class="pressure">{{air_pressure}} hPa</span>
 			</div>
+            <div class="info_bottom">
+                <span class="date"> {{formattedDate}}</span>
+            </div>
 		</div>
 	</div>
 </div>

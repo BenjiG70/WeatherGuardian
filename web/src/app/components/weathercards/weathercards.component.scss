@@ -44,54 +44,61 @@ body {
 	text-align: center;
 	text-transform: uppercase;
 	font-weight: 700;
-	font-size: 30px;
+	font-size: 25px;
 	display: block;
 }
-.conditions{
-	font-family: weathericons;
-	font-size: 80px;
-	display: block;
-	padding: 20px 0 0;
-	text-align: center;
-}
-.info{
+.conditions {
+    font-family: weathericons;
+    font-size: 80px;
+    display: block;
+    padding: 20px 0 0;
+    text-align: center;
+  }
+.info_top{
 	width: 180px;
-	height: 50px;
+	height: 30px;
 	position: absolute;
-	bottom: 0;
+	bottom: 10;
 	right: 0;
-	background: rgb(42, 178, 234);
+	background: rgb(15, 142, 196);
 	font-weight: 700;
 	color: rgb(255, 255, 255);
 	text-align: center;
 }
-.rain {
+.info_bottom{
+	width: 180px;
+	height: 35px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	background: rgb(15, 142, 196);
+	font-weight: 700;
+	color: rgb(255, 255, 255);
+	text-align: center;
+}
+.humidity {
 	width: 50%;
 	position: absolute;
 	left: 10px;
 	word-spacing: 60px;
 	top: 3px;
 }
-.rain::before{
+.humidity::before{
 	display: block;
-	content: '\f04e';
-	font-family: weathericons;
 	font-size: 40px;
 	left: 6px;
 	top: -4px;
 	position: absolute;
 }
-.wind {
+.pressure {
 	width: 50%;
 	right: -10px;
 	position: absolute;
 	word-spacing: 60px;
 	top: 3px;
 }
-.wind::before{
+.pressure::before{
 	display: block;
-	content: '\f050';
-	font-family: weathericons;
 	font-size: 25px;
 	left: -10px;
 	position: absolute;

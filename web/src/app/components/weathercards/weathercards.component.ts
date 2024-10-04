@@ -48,11 +48,13 @@ export class WeathercardsComponent {
     return Math.round(value * 10) / 10; // Rundet auf eine Dezimalstelle
   }
   @Input() rain:boolean = false;
+  // rain:boolean = true;
   @Input()
   set date(value: any) {
     // Stelle sicher, dass der Wert ein Zeitstempel ist
     this._date = new Date(Number(value)); // Umwandlung in ein Date-Objekt
     this.formattedDate = this.formatDate(this._date); // Formatiere das Datum
+    console.log(this.formattedDate)
   }
 
   get date(): any {
