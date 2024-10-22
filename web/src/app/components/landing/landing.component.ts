@@ -20,23 +20,40 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.loadAllSensors();
     this.startDataRefresh();
   }
-
+  
   loadAllSensors(): void {
-    this.dbService.getAllData().subscribe(
-      (data: unknown) => {
-        if (this.isSensorData(data)) {
-          this.sensors = Object.values(data).map(sensorData => sensorData.sensor);
-          this.updateSensorsData();
-        } else {
-          console.error('Unexpected data format:', data);
+    const reloadInterval = 5000; // 5 Sekunden
+    let retryInterval: any;
+  
+    const fetchData = () => {
+      this.dbService.getAllData().subscribe(
+        (data: unknown) => {
+          if (this.isSensorData(data)) {
+            if (retryInterval) {
+              clearInterval(retryInterval);  // Timer stoppen, wenn Daten erfolgreich geladen wurden
+            }
+            this.sensors = Object.values(data).map(sensorData => sensorData.sensor);
+            this.updateSensorsData();
+          } else {
+            console.error('Unexpected data format:', data);
+          }
+        },
+        (error: any) => {
+          console.error('Error fetching sensors data:', error);
+          this.sensorsData = [];
+  
+          // Alle 5 Sekunden erneut versuchen, wenn keine Verbindung hergestellt werden kann
+          if (!retryInterval) {
+            retryInterval = setInterval(fetchData, reloadInterval);
+          }
         }
-      },
-      (error:any) => {
-        console.error('Error fetching sensors data:', error);
-        this.sensorsData = [];
-      }
-    );
+      );
+    };
+  
+    // Erste Datenabfrage
+    fetchData();
   }
+  
 
   updateSensorsData(): void {
     this.sensors.forEach(sensor => {

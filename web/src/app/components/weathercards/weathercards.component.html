@@ -1,15 +1,17 @@
   <div id="weather_wrapper">
 	<div class="weatherCard">
 		<div class="currentTemp">
-			<span class="temp">{{temperature}}&deg;</span>
+			<!-- in my case C for Celsius could be changed to F (Fahrenheit) -->
+			<span class="temp">{{temperature}}&deg;C</span>
 			<span class="location">{{sensor}}</span>
 		</div>
 		<div class="currentWeather">
 			<span id="weather-icon" class="conditions">
-                <!-- Wenn "rain" true ist, zeige dieses Symbol -->
-                <span *ngIf="rain">&#xf018;</span>
-              
-                <!-- Wenn "rain" false ist, zeige dieses Symbol -->
+				<!-- if you want just a emblem/symbol -->
+				 <!-- example with bmw (https://icons8.com/icons/set/bmw)-->
+				<!-- <div class="icons8-bmw"></div> -->
+
+				<span *ngIf="rain">&#xf018;</span>
                 <span *ngIf="!rain">&#xf00d;</span>
               </span>
 			<div class="info_top">
