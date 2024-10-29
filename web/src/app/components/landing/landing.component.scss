@@ -1,3 +1,26 @@
+.sensor-container{
+    display: -webkit-flex;
+    display: flex;
+    display: grid;
+    grid-row: 1;
+    grid-column: 1;
+
+}
+.sensor-data{
+    margin: 20px
+}
+
+.charts{
+  display: grid;
+  grid-row: 2;
+  grid-column: 1;
+    #allTimeHum, #allTimeTemp{
+        display: -webkit-flex;
+        display: flex;
+    }
+    
+}
+
 .container {
     width: 300px;
     height: 280px;

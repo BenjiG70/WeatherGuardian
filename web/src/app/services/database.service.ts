@@ -8,7 +8,8 @@ import { apiData } from '../datatypes/database_interaction'
   providedIn: 'root'
 })
 export class DatabaseService {
-  private apiUrl = 'http://192.168.178.63:4202'; // Deine API-URL
+  //private apiUrl = 'http://192.168.178.63:4202'; // Deine API-URL
+  private apiUrl = 'http://localhost:4202';
 
   constructor(private http: HttpClient) {}
 
@@ -68,7 +69,7 @@ export class DatabaseService {
    * Fügt neue Sensordaten in die Datenbank ein.
    * @param weatherData Die zu speichernden Sensordaten.
    */
-  insertWeatherData(weatherData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/insert/weatherdata`, weatherData);
-  }
+  // insertWeatherData(weatherData: any): Observable<any> {
+  //   return this.http.post<any>(`${this.apiUrl}/insert/weatherdata`, weatherData);
+  // }
 }

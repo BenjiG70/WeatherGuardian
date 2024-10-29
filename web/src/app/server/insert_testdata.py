@@ -26,4 +26,4 @@ while x < 100:
             print("Error:", response.status_code, response.text)
 
     except requests.exceptions.RequestException as e:
-        print(f"Error to connect to serverr: {e}")
+        print(f"Error to connect to server: {e}")

@@ -8,10 +8,36 @@
             [air_pressure]="sensor.air_pressure"
             [rain]="sensor.regen === 1"
             [date]="sensor.DATE_TIME"
+            (click)="openDialog(sensor.sensor)"
             >
         </app-weathercards>
         </div>
+        <div class="charts" *ngIf="sensorsData.length === 1">
+          <div id="allTimeTemp">
+            <app-details
+            [title]="'test'"
+            >
+            </app-details>
+            <app-details
+            [title]="'test'"
+            [data]="statTempData"
+            >
+            </app-details>
+           
+          </div>
+          <div id="allTimeHum">
+            <app-details
+            [title]="'AVGAllSensors'"
+            >
+            </app-details>
+            <app-details
+            [title]="'AllSensors'"
+            >
+            </app-details>
+          </div>
+        </div>
     </div>
+    
     <!-- loading container: https://uiverse.io/AnnixArt/wonderful-liger-82 -->
     <div *ngIf="sensorsData.length === 0">
       <div class="container">
@@ -34,5 +60,5 @@
         <div class="coffee-footer"></div>
       </div>      
     </div>
-  
-  </div>
+    
+ </div>

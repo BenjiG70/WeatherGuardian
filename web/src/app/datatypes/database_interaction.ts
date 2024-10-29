@@ -27,3 +27,15 @@ export interface statsData{
   air_pressure: number;
   regen: number;
 }
+
+export interface AllTimeStatsDataSensor{
+  DATE_TIME: string;
+  temperature: number;
+  humidity: number;
+  air_pressure: number;
+  sensor: string;
+  regen: number;
+}
+export interface apiDataAllTimeStatsDataSensor{
+  [key:number] : AllTimeStatsDataSensor
+}
