@@ -17,6 +17,12 @@ export class LandingComponent implements OnInit, OnDestroy {
   statTempData:any;
   statHumData:any;
   statLabel:any;
+  statTempDataCurrentYear:any;
+  statHumDataCurrentYear:any
+  statLabelCurrentYear:any;
+  statTempDataAllTime:any;
+  statHumDataAllTime:any;
+  statLabelAllTime:any;
 
   constructor(private dbService: DatabaseService, public dialog: MatDialog) {}
 
@@ -59,91 +65,136 @@ export class LandingComponent implements OnInit, OnDestroy {
     // Erste Datenabfrage
     fetchData();
   }
-  prepareChartData(monthlyAverages: { [key: string]: { avgTemp: number, avgHum: number } }) {
-    // Extrahieren der Monatsnamen für die Labels
-    const monthLabels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    // Arrays für Temperatur- und Luftfeuchtigkeitsdurchschnitte
-    const tempData: number[] = [];
-    const humData: number[] = [];
-
-    // Durchschnittswerte in Reihenfolge der Monate in die Arrays schreiben
-    monthLabels.forEach((_, index) => {
-        tempData.push(monthlyAverages[index].avgTemp);
-        humData.push(monthlyAverages[index].avgHum);
-    });
-    return {tempData, humData, monthLabels}
-  }
-  avgData(months: number[][][]): { [key: string]: { avgTemp: number, avgHum: number } } {
-    const averages: { [key: string]: { avgTemp: number, avgHum: number } } = {};
-
-    // Monatliche Durchschnittswerte berechnen
-    months.forEach((monthData, index) => {
-        if (monthData.length === 0) {
-            // Wenn der Monat keine Daten enthält, setzen wir den Durchschnitt auf 0
-            averages[this.getMonthName(index)] = { avgTemp: 0, avgHum: 0 };
-        } else {
-            // Summen für Temperatur und Luftfeuchtigkeit berechnen
-            const tempSum = monthData.reduce((sum, entry) => sum + entry[1], 0);
-            const humSum = monthData.reduce((sum, entry) => sum + entry[2], 0);
-
-            // Durchschnitt berechnen
-            const avgTemp = tempSum / monthData.length;
-            const avgHum = humSum / monthData.length;
-
-            // Durchschnittswerte im Ergebnisobjekt speichern
-            averages[this.getMonthName(index)] = { avgTemp, avgHum };
-        }
-    });
-
-    return averages;
-}
+  // Hilfsfunktion zur Konvertierung des Monatsindex in den Monatsnamen
 getMonthName(index: number): string {
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+  ];
   return monthNames[index];
 }
 
-  sortDataByMonth(time: number[], temp: number[], hum: number[]) {
-    // Array mit 12 leeren Arrays für jeden Monat
-    const months: number[][][] = Array.from({ length: 12 }, () => []);
+// Funktion zur Berechnung der Monatsdurchschnittswerte (All Time oder aktuelles Jahr)
+avgData(months: { [key: number]: number[][] }): { [key: string]: { avgTemp: number, avgHum: number } } {
+  const averages: { [key: string]: { avgTemp: number, avgHum: number } } = {};
 
-    // Daten in die richtigen Monats-Arrays einsortieren
-    for (let i = 0; i < time.length; i++) {
-        const date = new Date(time[i]);
-        const month = date.getUTCMonth(); // Monat als Index nutzen (0 = Jan, 11 = Dez)
+  for (const monthKey in months) {
+      const dataArray = months[monthKey];
+      let tempSum = 0;
+      let humSum = 0;
 
-        // Werte in das entsprechende Monats-Array einfügen
-        months[month].push([time[i], temp[i], hum[i]]);
-    }
-    return months;
+      // Summiere alle Temperatur- und Feuchtigkeitswerte im Monat
+      for (const [_, temp, hum] of dataArray) {
+          tempSum += temp;
+          humSum += hum;
+      }
+
+      // Durchschnitt berechnen
+      const avgTemp = tempSum / dataArray.length;
+      const avgHum = humSum / dataArray.length;
+
+      // Monat und Jahr aus monthKey extrahieren
+      const year = Math.floor(Number(monthKey) / 100);
+      const month = Number(monthKey) % 100;
+
+      // Monatname als String
+      const monthName = this.getMonthName(month);
+      const key = `${monthName} ${year}`;
+
+      // Durchschnittswerte speichern
+      averages[key] = { avgTemp, avgHum };
+  }
+
+  return averages;
 }
 
-  getMonth(time:string){
-    const date = new Date(Number(time)) //convert given time to date-object
-    const year = date.getFullYear(); //get year of given date
-    const month = date.getMonth(); //get month of given date
-    return year * 100 + month; //convert year and month to format YYYYMM
+// Daten nach Monat gruppieren (All Time oder aktuelles Jahr)
+sortDataByMonth(time: number[], temp: number[], hum: number[], filterYear?: number) {
+  const months: { [key: number]: number[][] } = {};
+
+  for (let i = 0; i < time.length; i++) {
+      const date: Date = new Date(time[i]);
+      const month: number = date.getUTCMonth();
+      const year: number = date.getUTCFullYear();
+      const index: number = year * 100 + month;
+
+      // Filtere, wenn ein bestimmtes Jahr gewünscht ist
+      if (filterYear && year !== filterYear) continue;
+
+      if (!months[index]) {
+          months[index] = [];
+      }
+
+      months[index].push([time[i], temp[i], hum[i]]);
   }
-  sortDataByimportant(){
-    const data = this.sensorDataforStats;
-    let time:any[] =[];
-    let temp:any[] =[];
-    let hum:any[]=[];
-    for(let i=0; i < Object.keys(data).length; i++){
+
+  return months;
+}
+
+// Funktion zur Vorbereitung der Chart-Daten für ein gegebenes Jahr
+prepareChartData(monthlyAverages: { [key: string]: { avgTemp: number, avgHum: number } }, year: number) {
+  const monthLabels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const tempData: number[] = [];
+  const humData: number[] = [];
+
+  monthLabels.forEach((monthName, index) => {
+      const key = `${monthName} ${year}`;
+      const data = monthlyAverages[key];
+
+      if (data) {
+          tempData.push(data.avgTemp);
+          humData.push(data.avgHum);
+      } else {
+          tempData.push(0);
+          humData.push(0);
+      }
+  });
+
+  return { tempData, humData, monthLabels };
+}
+
+// Statistiken für aktuelles Jahr und All Time generieren
+getStatsData() {
+  const { temp, hum, time } = this.sortDataByimportant();
+  
+  const currentYear = new Date().getFullYear();
+
+  // Daten für aktuelles Jahr filtern und berechnen
+  const sortedDataCurrentYear = this.sortDataByMonth(time, temp, hum, currentYear);
+  const avgValuesCurrentYear = this.avgData(sortedDataCurrentYear);
+  const { tempData: tempDataCurrentYear, humData: humDataCurrentYear, monthLabels: monthLabelsCurrentYear } = this.prepareChartData(avgValuesCurrentYear, currentYear);
+  
+  // All Time Daten berechnen
+  const sortedDataAllTime = this.sortDataByMonth(time, temp, hum);
+  const avgValuesAllTime = this.avgData(sortedDataAllTime);
+  const { tempData: tempDataAllTime, humData: humDataAllTime, monthLabels: monthLabelsAllTime } = this.prepareChartData(avgValuesAllTime, currentYear);
+
+  // Zuweisung an die statischen Variablen
+  this.statTempDataCurrentYear = tempDataCurrentYear;
+  this.statHumDataCurrentYear = humDataCurrentYear;
+  this.statLabelCurrentYear = monthLabelsCurrentYear;
+
+  this.statTempDataAllTime = tempDataAllTime;
+  this.statHumDataAllTime = humDataAllTime;
+  this.statLabelAllTime = monthLabelsAllTime;
+}
+
+// Funktion zur Umwandlung der Rohdaten in benötigte Arrays
+sortDataByimportant() {
+  const data = this.sensorDataforStats;
+  const time: any[] = [];
+  const temp: any[] = [];
+  const hum: any[] = [];
+
+  for (let i = 0; i < Object.keys(data).length; i++) {
       temp.push(data[i].temperature);
       hum.push(data[i].humidity);
-      time.push(new Date(Number(data[i].DATE_TIME)));
-    }
-    const sortedData:number[][][] = this.sortDataByMonth(time, temp, hum);
-    const avgValues = this.avgData(sortedData);
-    const {tempData, humData, monthLabels} = this.prepareChartData(avgValues);
-    this.statTempData = tempData;
-    this.statHumData = humData;
-    this.statLabel = monthLabels;
+      time.push(new Date(Number(data[i].DATE_TIME)).getTime());
   }
-  getStatsData(){
-    this.sortDataByimportant();
-  }
+
+  return { temp, hum, time };
+}
+
 
   updateSensorsData(): void {
     this.sensors.forEach(sensor => {
@@ -173,7 +224,7 @@ getMonthName(index: number): string {
 
   openDialog(sensor: any): void {
     this.dialog.open(DetailsComponent, {
-      width: '150%',
+      width: '100%',
       data: {
         sensor: sensor
       }

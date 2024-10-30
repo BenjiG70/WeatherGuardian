@@ -12,26 +12,33 @@
             >
         </app-weathercards>
         </div>
-        <div class="charts" *ngIf="sensorsData.length === 1">
-          <div id="allTimeTemp">
+        <div class="charts" *ngIf="sensorsData.length > 1">
+          <div id="yearly">
             <app-details
-            [title]="'test'"
+            [title]="'Humidity (%) of the actual year of all sensors'"
+            [data]="statHumDataCurrentYear"
+            [labels]="statLabelCurrentYear"
             >
             </app-details>
             <app-details
-            [title]="'test'"
-            [data]="statTempData"
+            [title]="'Temperature (°C) of the actual year of all sensors'"
+            [data]="statTempDataCurrentYear"
+            [labels]="statLabelCurrentYear"
             >
             </app-details>
            
           </div>
-          <div id="allTimeHum">
+          <div id="alltime">
             <app-details
-            [title]="'AVGAllSensors'"
+            [title]="'Humidity (%) of all time of all sensors'"
+            [data]="statHumDataAllTime"
+            [labels]="statLabelAllTime"
             >
             </app-details>
             <app-details
-            [title]="'AllSensors'"
+            [title]="'Temperature (°C) of all time of all sensors'"
+            [data]="statTempDataAllTime"
+            [labels]="statLabelAllTime"
             >
             </app-details>
           </div>

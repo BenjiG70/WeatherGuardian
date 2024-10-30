@@ -52,7 +52,7 @@ export class WeathercardsComponent {
   
   @Input()
   set date(value: any) {
-    this.formattedDate = new Date(value).toLocaleString();
+    this.formattedDate = new Date(Number(value)).toLocaleString();
   }
 
   get date(): any {
