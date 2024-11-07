@@ -7,8 +7,8 @@
 #define BME280_I2C_ADDRESS 0x76
 
 // WiFi Konfiguration
-const char* ssid = "<your_ssid>";
-const char* password = "<your_password>";
+const char* ssid = "TC-9E298";
+const char* password = "52J5baPxrttk";
 
 // Server-URL
 const char* serverUrl = "http://192.168.0.15:4202/insert/data";
